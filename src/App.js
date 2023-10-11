@@ -5,6 +5,7 @@ import MainHeader from "./components/MainHeader/MainHeader";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loginDetails, setLoginDetails] = useState(null);
 
   useEffect(() => {
     const loggedinStatus = localStorage.getItem("isLoggedin");
@@ -16,11 +17,13 @@ function App() {
   const loginHandler = (email, password) => {
     localStorage.setItem("isLoggedin", "1");
     setIsLoggedIn(true);
+    setLoginDetails({ email, password });
   };
 
   const logoutHandler = () => {
     localStorage.removeItem("isLoggedin");
     setIsLoggedIn(false);
+    setLoginDetails(null);
   };
 
   return (
@@ -28,7 +31,9 @@ function App() {
       <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
       <main>
         {!isLoggedIn && <Login onLogin={loginHandler} />}
-        {isLoggedIn && <Home onLogout={logoutHandler} />}
+        {isLoggedIn && (
+          <Home onLogout={logoutHandler} loginDetails={loginDetails} />
+        )}
       </main>
     </React.Fragment>
   );

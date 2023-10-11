@@ -13,15 +13,13 @@ const Login = (props) => {
 
   useEffect(() => {
     const identifier = setTimeout(() => {
-      console.log("checking form validity");
       setFormIsValid(
         enteredEmail.includes("@" && ".") && enteredPassword.trim().length > 7
       );
     }, 1000);
-    return ()=>{
-      console.log('cleaning Up...')
-      clearTimeout(identifier)
-    }
+    return () => {
+      clearTimeout(identifier);
+    };
   }, [enteredEmail, enteredPassword]);
 
   const emailChangeHandler = (event) => {
@@ -80,6 +78,7 @@ const Login = (props) => {
           <Button type="submit" className={classes.btn} disabled={!formIsValid}>
             LogIn
           </Button>
+          <h2>Note: Your Login Details will be shown here!!</h2>
         </div>
       </form>
     </Card>
